@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Admin\\Desktop\\Spring25\\PRN222\\Assignments\\FUNewsManagement\\FUNewsManagementASPNETCoreMVC\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{FB4C4A42-5227-4E1D-8DE5-16838A81D94E}|Services\\Services.csproj|c:\\users\\admin\\desktop\\spring25\\prn222\\assignments\\funewsmanagement\\funewsmanagementaspnetcoremvc\\services\\services.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{FB4C4A42-5227-4E1D-8DE5-16838A81D94E}|Services\\Services.csproj|solutionrelative:services\\services.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5610EC59-C4EE-426B-9DD0-38CDFC7B7797}|DataAccessObjects\\DataAccessObjects.csproj|C:\\Users\\Admin\\Desktop\\Spring25\\PRN222\\Assignments\\FUNewsManagement\\FUNewsManagementASPNETCoreMVC\\dataaccessobjects\\dataaccessobjects.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{5610EC59-C4EE-426B-9DD0-38CDFC7B7797}|DataAccessObjects\\DataAccessObjects.csproj|solutionrelative:dataaccessobjects\\dataaccessobjects.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB90DEA5-2868-493B-A7DF-B71AB3F7C33E}|Repositories\\Repositories.csproj|C:\\Users\\Admin\\Desktop\\Spring25\\PRN222\\Assignments\\FUNewsManagement\\FUNewsManagementASPNETCoreMVC\\repositories\\repositories.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{FB90DEA5-2868-493B-A7DF-B71AB3F7C33E}|Repositories\\Repositories.csproj|solutionrelative:repositories\\repositories.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DataAccessObjects.csproj",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\Spring25\\PRN222\\Assignments\\FUNewsManagement\\FUNewsManagementASPNETCoreMVC\\DataAccessObjects\\DataAccessObjects.csproj",
+              "RelativeDocumentMoniker": "DataAccessObjects\\DataAccessObjects.csproj",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\Spring25\\PRN222\\Assignments\\FUNewsManagement\\FUNewsManagementASPNETCoreMVC\\DataAccessObjects\\DataAccessObjects.csproj",
+              "RelativeToolTip": "DataAccessObjects\\DataAccessObjects.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-02-12T14:58:45.914Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Repositories.csproj",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\Spring25\\PRN222\\Assignments\\FUNewsManagement\\FUNewsManagementASPNETCoreMVC\\Repositories\\Repositories.csproj",
+              "RelativeDocumentMoniker": "Repositories\\Repositories.csproj",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\Spring25\\PRN222\\Assignments\\FUNewsManagement\\FUNewsManagementASPNETCoreMVC\\Repositories\\Repositories.csproj",
+              "RelativeToolTip": "Repositories\\Repositories.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-02-12T14:58:14.294Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Services.csproj",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\Spring25\\PRN222\\Assignments\\FUNewsManagement\\FUNewsManagementASPNETCoreMVC\\Services\\Services.csproj",
+              "RelativeDocumentMoniker": "Services\\Services.csproj",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\Spring25\\PRN222\\Assignments\\FUNewsManagement\\FUNewsManagementASPNETCoreMVC\\Services\\Services.csproj",
+              "RelativeToolTip": "Services\\Services.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-02-12T14:57:52.245Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
