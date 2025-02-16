@@ -20,7 +20,7 @@ namespace DataAccessObjects
             }
             catch (Exception e)
             {
-
+                throw new Exception(e.Message);
             }
             return articleProducts;
         }
@@ -59,6 +59,7 @@ namespace DataAccessObjects
             try
             {
                 using var context = new FUNewsManagementContext();
+                context.Remove(a);
 
                 context.SaveChanges();
             }

@@ -69,6 +69,7 @@ namespace FUNewsManagement.Controllers
         }
 
         // GET: NewsArticles/Edit/5
+        [HttpGet("Edit/{id}")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
