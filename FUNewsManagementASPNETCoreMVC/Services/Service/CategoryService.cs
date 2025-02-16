@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Services.Service
 {
-    public class CategoryService : ICatergoryService
+    public class CategoryService : ICategoryService
     {
         private readonly ICatergoryRepository _categoryRepository;
 
