@@ -72,7 +72,7 @@ namespace DataAccessObjects
         public static NewsArticle GetNewsArticleById(int id)
         {
             using var db = new FUNewsManagementContext();
-            return db.NewsArticles.FirstOrDefault(c => c.NewsArticleId.Equals(id));
+            return db.NewsArticles.FirstOrDefault(c => c.NewsArticleId == id.ToString());
         }
     }
 

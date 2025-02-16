@@ -12,7 +12,7 @@ namespace DataAccessObjects
         public static SystemAccount GetAccountById(string accountID)
         {
             using var db = new FUNewsManagementContext();
-            return db.SystemAccounts.FirstOrDefault(c => c.AccountId.Equals(accountID));
+            return db.SystemAccounts.FirstOrDefault(c => c.AccountId.ToString().Equals(accountID));
         }
     }
 }
