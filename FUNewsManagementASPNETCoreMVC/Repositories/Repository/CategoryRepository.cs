@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Repositories.Repository
 {
-    public class CategoryRepository : ICatergoryRepository
+    public class CategoryRepository : ICategoryRepository
     {
         public List<Category> GetCategories() => CategoryDAO.GetCategories();
     }

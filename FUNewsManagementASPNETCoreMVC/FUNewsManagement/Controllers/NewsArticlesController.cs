@@ -30,7 +30,7 @@ namespace FUNewsManagement.Controllers
         }
 
         // GET: NewsArticles/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -40,7 +40,7 @@ namespace FUNewsManagement.Controllers
             var product = _contextNewsArticle.GetNewsArticleById(Convert.ToInt32(id));
             if (product == null)
             {
-                return NotFound();
+                return RedirectToAction();
             }
 
             return View(product);
@@ -69,29 +69,28 @@ namespace FUNewsManagement.Controllers
         }
 
         // GET: NewsArticles/Edit/5
-        [HttpGet("Edit/{id}")]
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var product = _contextNewsArticle.GetNewsArticleById(Convert.ToInt32(id));
-            if (product == null)
+            var article = _contextNewsArticle.GetNewsArticleById(Convert.ToInt32(id));
+            if (article == null)
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_contextCategory.GetCategories(), "CategoryId", "CategoryId", product.CategoryId);
-            return View(product);
+            ViewData["CategoryId"] = new SelectList(_contextCategory.GetCategories(), "CategoryId", "CategoryId", article.CategoryId);
+            return View(article);
         }
 
         // POST: NewsArticles/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("NewsArticleId,NewsTitle,Headline,CreatedDate,NewsContent,NewsSource,CategoryId,NewsStatus,CreatedById,UpdatedById,ModifiedDate")] NewsArticle newsArticle)
+        public async Task<IActionResult> Edit(int id, [Bind("NewsArticleId,NewsTitle,Headline,CreatedDate,NewsContent,NewsSource,CategoryId,NewsStatus,CreatedById,UpdatedById,ModifiedDate")] NewsArticle newsArticle)
         {
-            if (id != newsArticle.NewsArticleId)
+            if (id.ToString() != newsArticle.NewsArticleId)
             {
                 return NotFound();
             }
@@ -104,7 +103,7 @@ namespace FUNewsManagement.Controllers
                 }
                 catch (Exception)
                 {
-                    if (!NewsArticleExists(newsArticle.NewsArticleId))
+                    if (!NewsArticleExists(Convert.ToInt32(newsArticle.NewsArticleId)))
                     {
                         return NotFound();
                     }
@@ -120,7 +119,7 @@ namespace FUNewsManagement.Controllers
         }
 
         // GET: NewsArticles/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -139,7 +138,7 @@ namespace FUNewsManagement.Controllers
         // POST: NewsArticles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var newsArticle = _contextNewsArticle.GetNewsArticleById(Convert.ToInt32(id));
             if (newsArticle != null)
@@ -150,7 +149,7 @@ namespace FUNewsManagement.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool NewsArticleExists(string id)
+        private bool NewsArticleExists(int id)
         {
             var tmp = _contextNewsArticle.GetNewsArticleById(Convert.ToInt32(id));
             return (tmp != null) ? true : false;
