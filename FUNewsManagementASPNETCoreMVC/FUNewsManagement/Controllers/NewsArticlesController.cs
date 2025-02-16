@@ -12,21 +12,21 @@ namespace FUNewsManagement.Controllers
 {
     public class NewsArticlesController : Controller
     {
-        private readonly FUNewsManagementContext _context;
         private readonly INewsArticleService _contextNewsArticle;
         private readonly ICategoryService _contextCategory;
 
-
-        public NewsArticlesController(FUNewsManagementContext context)
+        public NewsArticlesController(INewsArticleService contextNewsArticle, ICategoryService contextCategory)
         {
-            _context = context;
+            _contextNewsArticle = contextNewsArticle;
+            _contextCategory = contextCategory;
         }
+
 
         // GET: NewsArticles
         public async Task<IActionResult> Index()
         {
-            var fUNewsManagementContext = _context.NewsArticles.Include(n => n.Category).Include(n => n.CreatedBy);
-            return View(await fUNewsManagementContext.ToListAsync());
+            var myStoreContext = _contextNewsArticle.GetNewsArticles();
+            return View(myStoreContext.ToList());
         }
 
         // GET: NewsArticles/Details/5
@@ -37,41 +37,34 @@ namespace FUNewsManagement.Controllers
                 return NotFound();
             }
 
-            var newsArticle = await _context.NewsArticles
-                .Include(n => n.Category)
-                .Include(n => n.CreatedBy)
-                .FirstOrDefaultAsync(m => m.NewsArticleId == id);
-            if (newsArticle == null)
+            var product = _contextNewsArticle.GetNewsArticleById(Convert.ToInt32(id));
+            if (product == null)
             {
                 return NotFound();
             }
 
-            return View(newsArticle);
+            return View(product);
         }
 
         // GET: NewsArticles/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryDesciption");
-            ViewData["CreatedById"] = new SelectList(_context.SystemAccounts, "AccountId", "AccountId");
+            ViewData["CategoryId"] = new SelectList(_contextCategory.GetCategories(), "CategoryId", "CategoryId");
             return View();
         }
 
         // POST: NewsArticles/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("NewsArticleId,NewsTitle,Headline,CreatedDate,NewsContent,NewsSource,CategoryId,NewsStatus,CreatedById,UpdatedById,ModifiedDate")] NewsArticle newsArticle)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(newsArticle);
-                await _context.SaveChangesAsync();
+                _contextNewsArticle.SaveNewsArticle(newsArticle);
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryDesciption", newsArticle.CategoryId);
-            ViewData["CreatedById"] = new SelectList(_context.SystemAccounts, "AccountId", "AccountId", newsArticle.CreatedById);
+            ViewData["CategoryId"] = new SelectList(_contextCategory.GetCategories(), "CategoryId", "CategoryId", newsArticle.CategoryId);
             return View(newsArticle);
         }
 
@@ -83,19 +76,16 @@ namespace FUNewsManagement.Controllers
                 return NotFound();
             }
 
-            var newsArticle = await _context.NewsArticles.FindAsync(id);
-            if (newsArticle == null)
+            var product = _contextNewsArticle.GetNewsArticleById(Convert.ToInt32(id));
+            if (product == null)
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryDesciption", newsArticle.CategoryId);
-            ViewData["CreatedById"] = new SelectList(_context.SystemAccounts, "AccountId", "AccountId", newsArticle.CreatedById);
-            return View(newsArticle);
+            ViewData["CategoryId"] = new SelectList(_contextCategory.GetCategories(), "CategoryId", "CategoryId", product.CategoryId);
+            return View(product);
         }
 
         // POST: NewsArticles/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("NewsArticleId,NewsTitle,Headline,CreatedDate,NewsContent,NewsSource,CategoryId,NewsStatus,CreatedById,UpdatedById,ModifiedDate")] NewsArticle newsArticle)
@@ -109,10 +99,9 @@ namespace FUNewsManagement.Controllers
             {
                 try
                 {
-                    _context.Update(newsArticle);
-                    await _context.SaveChangesAsync();
+                    _contextNewsArticle.UpdateNewsArticle(newsArticle);
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (Exception)
                 {
                     if (!NewsArticleExists(newsArticle.NewsArticleId))
                     {
@@ -125,8 +114,7 @@ namespace FUNewsManagement.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryDesciption", newsArticle.CategoryId);
-            ViewData["CreatedById"] = new SelectList(_context.SystemAccounts, "AccountId", "AccountId", newsArticle.CreatedById);
+            ViewData["CategoryId"] = new SelectList(_contextCategory.GetCategories(), "CategoryId", "CategoryId", newsArticle.CategoryId);
             return View(newsArticle);
         }
 
@@ -138,10 +126,7 @@ namespace FUNewsManagement.Controllers
                 return NotFound();
             }
 
-            var newsArticle = await _context.NewsArticles
-                .Include(n => n.Category)
-                .Include(n => n.CreatedBy)
-                .FirstOrDefaultAsync(m => m.NewsArticleId == id);
+            var newsArticle = _contextNewsArticle.GetNewsArticleById(Convert.ToInt32(id));
             if (newsArticle == null)
             {
                 return NotFound();
@@ -155,19 +140,19 @@ namespace FUNewsManagement.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var newsArticle = await _context.NewsArticles.FindAsync(id);
+            var newsArticle = _contextNewsArticle.GetNewsArticleById(Convert.ToInt32(id));
             if (newsArticle != null)
             {
-                _context.NewsArticles.Remove(newsArticle);
+                _contextNewsArticle.DeleteNewsArticle(newsArticle);
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool NewsArticleExists(string id)
         {
-            return _context.NewsArticles.Any(e => e.NewsArticleId == id);
+            var tmp = _contextNewsArticle.GetNewsArticleById(Convert.ToInt32(id));
+            return (tmp != null) ? true : false;
         }
     }
 }

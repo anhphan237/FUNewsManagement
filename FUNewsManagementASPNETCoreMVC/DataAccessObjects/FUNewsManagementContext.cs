@@ -33,9 +33,22 @@ public partial class FUNewsManagementContext : DbContext
     {
         IConfiguration configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", true, true).Build();
-        return configuration["ConnectionStrings:DefaultConnectionString"];
+                .AddJsonFile("appsettings.json").Build();
+        return configuration["ConnectionStrings:FUNewsManagementDb"];
     }
+
+    /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+               .SetBasePath(Directory.GetCurrentDirectory())
+               .AddJsonFile("appsettings.json")
+               .Build();
+            var connectionString = configuration.GetConnectionString("FUNewsManagementDb");
+            optionsBuilder.UseSqlServer(connectionString);
+        }
+    }*/
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

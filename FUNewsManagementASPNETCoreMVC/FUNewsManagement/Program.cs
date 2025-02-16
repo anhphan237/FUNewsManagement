@@ -1,4 +1,4 @@
-using BusinessObjects;
+﻿using BusinessObjects;
 using Microsoft.EntityFrameworkCore;
 using Services.Interface;
 using Services.Service;
@@ -11,9 +11,6 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<INewsArticleService, NewsArticleService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 
-
-builder.Services.AddDbContext<FUNewsManagementContext>(options =>
-    options.UseSqlServer("Server=.; Database=FUNewsManagement; Uid=sa; Pwd=12345;TrustServerCertificate=true;"));
 
 var app = builder.Build();
 
