@@ -37,20 +37,6 @@ public partial class FUNewsManagementContext : DbContext
         return configuration["ConnectionStrings:FUNewsManagementDb"];
     }
 
-    /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        if (!optionsBuilder.IsConfigured)
-        {
-            IConfigurationRoot configuration = new ConfigurationBuilder()
-               .SetBasePath(Directory.GetCurrentDirectory())
-               .AddJsonFile("appsettings.json")
-               .Build();
-            var connectionString = configuration.GetConnectionString("FUNewsManagementDb");
-            optionsBuilder.UseSqlServer(connectionString);
-        }
-    }*/
-
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Category>(entity =>

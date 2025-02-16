@@ -12,13 +12,13 @@ namespace Services.Service
 {
     public class CategoryService : ICategoryService
     {
-        private readonly ICatergoryRepository _categoryRepository;
+        private readonly ICategoryRepository _categoryRepository;
 
         public CategoryService()
         {
             _categoryRepository = new CategoryRepository();
         }
 
-        public List<Category> GetCategories() => _categoryRepository.GetCategories();   
+        public List<Category> GetCategories() => _categoryRepository.GetCategories();
     }
 }
