@@ -1,11 +1,19 @@
 is_global = true
 build_property.TargetFramework = net8.0
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
 build_property.TargetPlatformMinVersion = 
 build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
 build_property.PlatformNeutralAssembly = 
 build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = FUNewsManagement
 build_property.RootNamespace = FUNewsManagement
@@ -17,6 +25,26 @@ build_property.SupportLocalizedComponentNames =
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
 build_property.MSBuildProjectDirectory = C:\Users\Admin\Desktop\Spring25\PRN222\Assignments\FUNewsManagement\FUNewsManagementASPNETCoreMVC\FUNewsManagement
 build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/Admin/Desktop/Spring25/PRN222/Assignments/FUNewsManagement/FUNewsManagementASPNETCoreMVC/FUNewsManagement/Views/Categories/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Desktop/Spring25/PRN222/Assignments/FUNewsManagement/FUNewsManagementASPNETCoreMVC/FUNewsManagement/Views/Categories/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Desktop/Spring25/PRN222/Assignments/FUNewsManagement/FUNewsManagementASPNETCoreMVC/FUNewsManagement/Views/Categories/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Desktop/Spring25/PRN222/Assignments/FUNewsManagement/FUNewsManagementASPNETCoreMVC/FUNewsManagement/Views/Categories/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Desktop/Spring25/PRN222/Assignments/FUNewsManagement/FUNewsManagementASPNETCoreMVC/FUNewsManagement/Views/Categories/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Admin/Desktop/Spring25/PRN222/Assignments/FUNewsManagement/FUNewsManagementASPNETCoreMVC/FUNewsManagement/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
@@ -52,6 +80,46 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Admin/Desktop/Spring25/PRN222/Assignments/FUNewsManagement/FUNewsManagementASPNETCoreMVC/FUNewsManagement/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Desktop/Spring25/PRN222/Assignments/FUNewsManagement/FUNewsManagementASPNETCoreMVC/FUNewsManagement/Views/SystemAccounts/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtQWNjb3VudHNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Desktop/Spring25/PRN222/Assignments/FUNewsManagement/FUNewsManagementASPNETCoreMVC/FUNewsManagement/Views/SystemAccounts/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtQWNjb3VudHNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Desktop/Spring25/PRN222/Assignments/FUNewsManagement/FUNewsManagementASPNETCoreMVC/FUNewsManagement/Views/SystemAccounts/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtQWNjb3VudHNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Desktop/Spring25/PRN222/Assignments/FUNewsManagement/FUNewsManagementASPNETCoreMVC/FUNewsManagement/Views/SystemAccounts/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtQWNjb3VudHNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Desktop/Spring25/PRN222/Assignments/FUNewsManagement/FUNewsManagementASPNETCoreMVC/FUNewsManagement/Views/SystemAccounts/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtQWNjb3VudHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Desktop/Spring25/PRN222/Assignments/FUNewsManagement/FUNewsManagementASPNETCoreMVC/FUNewsManagement/Views/Tags/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFnc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Desktop/Spring25/PRN222/Assignments/FUNewsManagement/FUNewsManagementASPNETCoreMVC/FUNewsManagement/Views/Tags/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFnc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Desktop/Spring25/PRN222/Assignments/FUNewsManagement/FUNewsManagementASPNETCoreMVC/FUNewsManagement/Views/Tags/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFnc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Desktop/Spring25/PRN222/Assignments/FUNewsManagement/FUNewsManagementASPNETCoreMVC/FUNewsManagement/Views/Tags/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFnc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Desktop/Spring25/PRN222/Assignments/FUNewsManagement/FUNewsManagementASPNETCoreMVC/FUNewsManagement/Views/Tags/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFnc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Admin/Desktop/Spring25/PRN222/Assignments/FUNewsManagement/FUNewsManagementASPNETCoreMVC/FUNewsManagement/Views/_ViewImports.cshtml]
