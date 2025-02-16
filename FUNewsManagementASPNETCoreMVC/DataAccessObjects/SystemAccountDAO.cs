@@ -9,10 +9,25 @@ namespace DataAccessObjects
 {
     public class SystemAccountDAO
     {
-        public static SystemAccount GetAccountById(string accountID)
+        public static SystemAccount GetAccountByEmailAndPassword(string email, string password)
         {
             using var db = new FUNewsManagementContext();
-            return db.SystemAccounts.FirstOrDefault(c => c.AccountId.ToString().Equals(accountID));
+            return db.SystemAccounts
+                .FirstOrDefault(a => a.AccountEmail == email && a.AccountPassword == password);
+        }
+
+        public static SystemAccount GetAccountByEmail(string email)
+        {
+            using var db = new FUNewsManagementContext();
+            return db.SystemAccounts
+                .FirstOrDefault(a => a.AccountEmail == email);
+        }
+
+        public static void CreateAccount(SystemAccount account)
+        {
+            using var db = new FUNewsManagementContext();
+            db.SystemAccounts.Add(account);
+            db.SaveChanges();
         }
     }
 }

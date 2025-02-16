@@ -9,6 +9,8 @@ namespace Repositories.Interface
 {
     public interface ISystemAccountRepository
     {
-        SystemAccount GetAccountById(string accountID);
+        SystemAccount GetAccountByEmailAndPassword(string email, string password);
+        SystemAccount GetAccountByEmail(string email);
+        void CreateAccount(SystemAccount account);  
     }
 }

@@ -7,7 +7,10 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    @if (ViewBag.Role == 1)
+    {
+        <a asp-action="Create">Create New</a>
+    }
 </p>
 <table class="table">
     <thead>
@@ -78,10 +81,18 @@
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedBy.AccountId)
             </td>
-            <td>
+            @* <td>
                 <a asp-action="Edit" asp-route-id="@item.NewsArticleId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.NewsArticleId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.NewsArticleId">Delete</a>
+            </td> *@
+            <td>
+                @if (ViewBag.Role == 1)
+                {
+                    <a asp-action="Edit" asp-route-id="@item.NewsArticleId">Edit</a>
+                    <a asp-action = "Delete" asp-route-id = "@item.NewsArticleId">Delete</a>
+                }
+                <a asp-action="Details" asp-route-id="@item.NewsArticleId">Details</a>
             </td>
         </tr>
 }

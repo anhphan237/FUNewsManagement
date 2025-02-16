@@ -11,6 +11,11 @@ namespace Repositories.Repository
 {
     public class SystemAccountRepository : ISystemAccountRepository
     {
-        public SystemAccount GetAccountById(string accountID) => SystemAccountDAO.GetAccountById(accountID);
+        public void CreateAccount(SystemAccount account)
+            => SystemAccountDAO.CreateAccount(account); 
+        public SystemAccount GetAccountByEmail(string email)
+            => SystemAccountDAO.GetAccountByEmail(email);
+        public SystemAccount GetAccountByEmailAndPassword(string email, string password) 
+            => SystemAccountDAO.GetAccountByEmailAndPassword(email,password);
     }
 }

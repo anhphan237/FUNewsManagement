@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjects;
 using Services.Interface;
+using FUNewsManagement.Filters;
 
 namespace FUNewsManagement.Controllers
 {
+    [SessionCheck] // Chặn truy cập nếu chưa đăng nhập
     public class CategoriesController : Controller
     {
         private readonly ICategoryService _contextCategory;

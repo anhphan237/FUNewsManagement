@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjects;
 using Services.Interface;
+using FUNewsManagement.Filters;
 
 namespace FUNewsManagement.Controllers
 {
+    [SessionCheck] // Chặn truy cập nếu chưa đăng nhập
     public class NewsArticlesController : Controller
     {
         private readonly INewsArticleService _contextNewsArticle;
@@ -25,6 +27,7 @@ namespace FUNewsManagement.Controllers
         // GET: NewsArticles
         public async Task<IActionResult> Index()
         {
+            ViewBag.Role = HttpContext.Session.GetInt32("AccountRole");
             var myStoreContext = _contextNewsArticle.GetNewsArticles();
             return View(myStoreContext.ToList());
         }
@@ -37,10 +40,12 @@ namespace FUNewsManagement.Controllers
                 return NotFound();
             }
 
+            ViewBag.Role = HttpContext.Session.GetInt32("AccountRole");
+
             var product = _contextNewsArticle.GetNewsArticleById(Convert.ToInt32(id));
             if (product == null)
             {
-                return RedirectToAction();
+                return NotFound();
             }
 
             return View(product);

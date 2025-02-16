@@ -9,6 +9,7 @@ namespace Services.Interface
 {
     public interface ISystemAccountService
     {
-        SystemAccount GetAccountById(string accountID);
+        SystemAccount GetAccountByEmailAndPassword(string email, string password);
+        SystemAccount GetAccountByEmail(string email);
     }
 }

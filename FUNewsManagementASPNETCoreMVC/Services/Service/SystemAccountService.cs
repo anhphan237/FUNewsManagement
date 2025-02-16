@@ -19,6 +19,10 @@ namespace Services.Service
             _systemAccountRepository = new SystemAccountRepository();   
         }
 
-        public SystemAccount GetAccountById(string accountID) => _systemAccountRepository.GetAccountById(accountID);
+        public SystemAccount GetAccountByEmail(string email)
+            => _systemAccountRepository.GetAccountByEmail(email);
+
+        public SystemAccount GetAccountByEmailAndPassword(string email, string password) 
+            => _systemAccountRepository.GetAccountByEmailAndPassword(email, password);
     }
 }

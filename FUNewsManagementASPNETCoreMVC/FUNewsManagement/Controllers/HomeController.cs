@@ -15,6 +15,8 @@ namespace FUNewsManagement.Controllers
 
         public IActionResult Index()
         {
+            var role = HttpContext.Session.GetInt32("AccountRole");
+            ViewBag.Role = role;
             return View();
         }
 

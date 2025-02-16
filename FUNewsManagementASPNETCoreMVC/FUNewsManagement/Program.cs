@@ -1,5 +1,7 @@
 ﻿using BusinessObjects;
 using DataAccessObjects;
+using FUNewsManagement.Filters;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Repositories.Interface;
@@ -23,8 +25,30 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ITagService, TagService>();
 builder.Services.AddScoped<ISystemAccountService, SystemAccountService>();
 
+// Cấu hình xác thực bằng Cookie
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login"; // Trang đăng nhập
+        options.AccessDeniedPath = "/Account/AccessDenied"; // Trang từ chối truy cập
+    });
+
+builder.Services.AddAuthorization();
+builder.Services.AddControllersWithViews();
+
+// Thêm Session vào dịch vụ
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Thời gian timeout
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 
 var app = builder.Build();
+
+app.UseAuthentication(); // Thêm middleware xác thực
+app.UseAuthorization();   // Thêm middleware phân quyền
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -41,8 +65,17 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+// Kích hoạt Session middleware
+app.UseSession();
+
+/*app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");*/
+
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=SystemAccounts}/{action=Index}/{id?}");
+
+
 
 app.Run();

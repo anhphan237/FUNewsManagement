@@ -6,151 +6,93 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjects;
+using DataAccessObjects;
+using FUNewsManagement.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
+using Services.Interface;
+using Microsoft.AspNetCore.Http;
 
 namespace FUNewsManagement.Controllers
 {
     public class SystemAccountsController : Controller
     {
-        private readonly FUNewsManagementContext _context;
+        private readonly ISystemAccountService _systemAccountService;
 
-        public SystemAccountsController(FUNewsManagementContext context)
+        public SystemAccountsController(ISystemAccountService systemAccountService)
         {
-            _context = context;
+            _systemAccountService = systemAccountService;
         }
 
-        // GET: SystemAccounts
-        public async Task<IActionResult> Index()
+        // Hiển thị trang login khi truy cập /SystemAccounts
+        public IActionResult Index()
         {
-            return View(await _context.SystemAccounts.ToListAsync());
+            return View("Login");
         }
 
-        // GET: SystemAccounts/Details/5
-        public async Task<IActionResult> Details(short? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var systemAccount = await _context.SystemAccounts
-                .FirstOrDefaultAsync(m => m.AccountId == id);
-            if (systemAccount == null)
-            {
-                return NotFound();
-            }
-
-            return View(systemAccount);
-        }
-
-        // GET: SystemAccounts/Create
-        public IActionResult Create()
+        [HttpGet]
+        public IActionResult Login()
         {
             return View();
         }
 
-        // POST: SystemAccounts/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AccountId,AccountName,AccountEmail,AccountRole,AccountPassword")] SystemAccount systemAccount)
+        public IActionResult Login(string email, string password)
         {
-            if (ModelState.IsValid)
+            var account = _systemAccountService.GetAccountByEmailAndPassword(email, password);
+
+            if (account != null)
             {
-                _context.Add(systemAccount);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // Lưu thông tin vào session
+                HttpContext.Session.SetInt32("AccountId", account.AccountId);
+                HttpContext.Session.SetInt32("AccountRole", account.AccountRole ?? 0);
+                return RedirectToAction("Index", "NewsArticles");
             }
-            return View(systemAccount);
+
+            ModelState.AddModelError("", "Invalid email or password");
+            return View();
         }
 
-        // GET: SystemAccounts/Edit/5
-        public async Task<IActionResult> Edit(short? id)
+        [HttpGet]
+        public IActionResult Register()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var systemAccount = await _context.SystemAccounts.FindAsync(id);
-            if (systemAccount == null)
-            {
-                return NotFound();
-            }
-            return View(systemAccount);
+            return View();
         }
 
-        // POST: SystemAccounts/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(short id, [Bind("AccountId,AccountName,AccountEmail,AccountRole,AccountPassword")] SystemAccount systemAccount)
+        public IActionResult Register(string email, string password, string confirmPassword)
         {
-            if (id != systemAccount.AccountId)
+            if (password != confirmPassword)
             {
-                return NotFound();
+                ModelState.AddModelError("", "Passwords do not match!");
+                return View();
             }
 
-            if (ModelState.IsValid)
+            var existingAccount = _systemAccountService.GetAccountByEmail(email);
+            if (existingAccount != null)
             {
-                try
-                {
-                    _context.Update(systemAccount);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SystemAccountExists(systemAccount.AccountId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                ModelState.AddModelError("", "Email is already registered!");
+                return View();
             }
-            return View(systemAccount);
+
+            var newAccount = new SystemAccount
+            {
+                AccountEmail = email,
+                AccountPassword = password, // Cần mã hóa mật khẩu trước khi lưu
+                AccountRole = 1 // Gán role mặc định cho user
+            };
+
+            _systemAccountService.CreateAccount(newAccount);
+
+            return RedirectToAction("Login");
         }
 
-        // GET: SystemAccounts/Delete/5
-        public async Task<IActionResult> Delete(short? id)
+
+        public IActionResult Logout()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var systemAccount = await _context.SystemAccounts
-                .FirstOrDefaultAsync(m => m.AccountId == id);
-            if (systemAccount == null)
-            {
-                return NotFound();
-            }
-
-            return View(systemAccount);
-        }
-
-        // POST: SystemAccounts/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(short id)
-        {
-            var systemAccount = await _context.SystemAccounts.FindAsync(id);
-            if (systemAccount != null)
-            {
-                _context.SystemAccounts.Remove(systemAccount);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool SystemAccountExists(short id)
-        {
-            return _context.SystemAccounts.Any(e => e.AccountId == id);
+            HttpContext.Session.Clear(); // Xóa session khi logout
+            return RedirectToAction("Login");
         }
     }
 }
