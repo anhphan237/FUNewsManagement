@@ -35,5 +35,11 @@ namespace DataAccessObjects
             using var db = new FUNewsManagementContext();
             return db.SystemAccounts.Count();   
         }
+
+        public static SystemAccount GetSystemAccountById(int id)
+        {
+            using var db = new FUNewsManagementContext();
+            return db.SystemAccounts.FirstOrDefault(c => c.AccountId == id);
+        }
     }
 }

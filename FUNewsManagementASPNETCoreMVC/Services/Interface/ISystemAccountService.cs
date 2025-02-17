@@ -13,5 +13,6 @@ namespace Services.Interface
         SystemAccount GetAccountByEmail(string email);
         void CreateAccount(SystemAccount account);
         int GetNumberOfAccount();
+        SystemAccount GetSystemAccountById(int id);
     }
 }

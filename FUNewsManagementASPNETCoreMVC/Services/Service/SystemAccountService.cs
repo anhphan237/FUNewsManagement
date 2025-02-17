@@ -30,5 +30,8 @@ namespace Services.Service
 
         public int GetNumberOfAccount()
             => _systemAccountRepository.GetNumberOfAccount();
+
+        public SystemAccount GetSystemAccountById(int id)
+            => _systemAccountRepository.GetSystemAccountById(id);
     }
 }

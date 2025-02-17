@@ -38,11 +38,14 @@
                     <div class="d-flex ms-auto align-items-center">
                         @{
                             var accountEmail = Context.Session.GetString("AccountEmail");
+                            var accountId = Context.Session.GetInt32("AccountId");
                         }
 
                         @if (!string.IsNullOrEmpty(accountEmail))
                         {
-                            <span class="navbar-text me-3">Xin chào, @accountEmail</span>
+                            <a class="navbar-text me-3 text-decoration-none" asp-controller="SystemAccounts" asp-action="Details" asp-route-id="@accountId">
+                                Xin chào, @accountEmail
+                            </a>
                             <a class="btn btn-outline-danger" asp-controller="SystemAccounts" asp-action="Logout">Logout</a>
                         }
                     </div>

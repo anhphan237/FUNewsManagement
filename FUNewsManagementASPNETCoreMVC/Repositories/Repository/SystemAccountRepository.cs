@@ -18,6 +18,8 @@ namespace Repositories.Repository
         public SystemAccount GetAccountByEmailAndPassword(string email, string password) 
             => SystemAccountDAO.GetAccountByEmailAndPassword(email,password);
         public int GetNumberOfAccount()
-            => SystemAccountDAO.GetNumberOfAccount();   
+            => SystemAccountDAO.GetNumberOfAccount();
+        public SystemAccount GetSystemAccountById(int id)
+            => SystemAccountDAO.GetSystemAccountById(id);   
     }
 }

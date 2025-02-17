@@ -47,7 +47,7 @@ namespace FUNewsManagement.Controllers
             {
                 // Lưu thông tin vào session
                 HttpContext.Session.SetInt32("AccountId", account.AccountId);
-                HttpContext.Session.SetString("AccountEmail", account.AccountEmail);
+                HttpContext.Session.SetString("AccountEmail", account.AccountEmail ?? "");
                 HttpContext.Session.SetInt32("AccountRole", account.AccountRole ?? 0);
                 return RedirectToAction("Index", "NewsArticles");
             }
@@ -91,6 +91,34 @@ namespace FUNewsManagement.Controllers
             return RedirectToAction("Login");
         }
 
+        /*public IActionResult Details(int id)
+        {
+            var account = _systemAccountService.GetSystemAccountById(id);
+            if (account == null)
+            {
+                return NotFound();
+            }
+            return View(account);
+        }*/
+
+        // GET: NewsArticles/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.Role = HttpContext.Session.GetInt32("AccountRole");
+
+            var product = _systemAccountService.GetSystemAccountById(Convert.ToInt32(id));
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
+        }
 
         public IActionResult Logout()
         {
