@@ -33,5 +33,11 @@ namespace Services.Service
 
         public SystemAccount GetSystemAccountById(int id)
             => _systemAccountRepository.GetSystemAccountById(id);
+
+        public List<SystemAccount> GetSystemAccounts()
+            => _systemAccountRepository.GetSystemAccounts();    
+
+        public void UpdateSystemAccount(SystemAccount a)
+            => _systemAccountRepository.UpdateSystemAccount(a);
     }
 }

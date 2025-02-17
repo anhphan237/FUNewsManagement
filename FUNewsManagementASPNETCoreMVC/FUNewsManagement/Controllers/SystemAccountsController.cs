@@ -32,6 +32,13 @@ namespace FUNewsManagement.Controllers
             return View("Login");
         }
 
+        // GET: SystemAccounts/AccountList (hiển thị danh sách tài khoản)
+        public async Task<IActionResult> AccountList()
+        {
+            var myStoreContext = _systemAccountService.GetSystemAccounts();
+            return View(myStoreContext.ToList()); // Trả về danh sách tài khoản
+        }
+
         [HttpGet]
         public IActionResult Login()
         {
@@ -91,16 +98,6 @@ namespace FUNewsManagement.Controllers
             return RedirectToAction("Login");
         }
 
-        /*public IActionResult Details(int id)
-        {
-            var account = _systemAccountService.GetSystemAccountById(id);
-            if (account == null)
-            {
-                return NotFound();
-            }
-            return View(account);
-        }*/
-
         // GET: NewsArticles/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -119,6 +116,58 @@ namespace FUNewsManagement.Controllers
 
             return View(product);
         }
+
+        // GET: SystemAccounts/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var account = _systemAccountService.GetSystemAccountById((short)id);
+            if (account == null)
+            {
+                return NotFound();
+            }
+
+            return View(account); // Trả về View hiển thị form chỉnh sửa
+        }
+
+        // POST: SystemAccounts/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id,
+            [Bind("AccountId,AccountName,AccountEmail,AccountRole,AccountPassword")] SystemAccount systemAccount)
+        {
+            if (id != systemAccount.AccountId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid) // Kiểm tra dữ liệu hợp lệ
+            {
+                try
+                {
+                    _systemAccountService.UpdateSystemAccount(systemAccount);
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (_systemAccountService.GetSystemAccountById((short) id) == null)
+                    {
+                        return NotFound(); // Nếu tài khoản không tồn tại
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index)); // Chuyển về danh sách tài khoản
+            }
+
+            return View(systemAccount); // Nếu lỗi, quay lại form chỉnh sửa
+        }
+
 
         public IActionResult Logout()
         {

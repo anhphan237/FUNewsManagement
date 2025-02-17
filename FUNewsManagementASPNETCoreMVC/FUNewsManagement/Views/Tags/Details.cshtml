@@ -25,7 +25,7 @@
     </dl>
 </div>
 <div>
-    @if (ViewBag.Role == 1)
+    @if (Context.Session.GetInt32("AccountRole") == 1)
     {
         <a asp-action="Edit" asp-route-id="@Model?.TagId">Edit</a>
     }

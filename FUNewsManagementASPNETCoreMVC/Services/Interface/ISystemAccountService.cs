@@ -12,6 +12,8 @@ namespace Services.Interface
         SystemAccount GetAccountByEmailAndPassword(string email, string password);
         SystemAccount GetAccountByEmail(string email);
         void CreateAccount(SystemAccount account);
+        void UpdateSystemAccount(SystemAccount a);
+        List<SystemAccount> GetSystemAccounts();
         int GetNumberOfAccount();
         SystemAccount GetSystemAccountById(int id);
     }

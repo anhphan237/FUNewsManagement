@@ -9,6 +9,21 @@ namespace DataAccessObjects
 {
     public class SystemAccountDAO
     {
+        public static List<SystemAccount> GetSystemAccounts()
+        {
+            var systemAccounts = new List<SystemAccount>();
+            try
+            {
+                using var db = new FUNewsManagementContext();
+                systemAccounts = db.SystemAccounts.ToList();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return systemAccounts;
+        }
+
         public static SystemAccount GetAccountByEmailAndPassword(string email, string password)
         {
             using var db = new FUNewsManagementContext();
@@ -34,6 +49,21 @@ namespace DataAccessObjects
         {
             using var db = new FUNewsManagementContext();
             return db.SystemAccounts.Count();   
+        }
+
+        public static void UpdateSystemAccount(SystemAccount a)
+        {
+            try
+            {
+                using var context = new FUNewsManagementContext();
+                context.Entry<SystemAccount>(a).State
+                    = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
         public static SystemAccount GetSystemAccountById(int id)

@@ -28,10 +28,10 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Tags" asp-action="Index">Tags</a>
                         </li>
-                        @if (ViewBag.Role == 1) // Admin mới thấy
+                        @if (Context.Session.GetInt32("AccountRole") == 1) // Admin mới thấy
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="SystemAccounts" asp-action="Index">System Accounts</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="SystemAccounts" asp-action="AccountList">System Accounts</a>
                             </li>
                         }
                     </ul>

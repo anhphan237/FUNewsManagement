@@ -41,7 +41,10 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    @if (Context.Session.GetInt32("AccountRole") == 1)
+    {
+        <a asp-action="Index">Back to List</a>
+    }
 </div>
 
 @section Scripts {

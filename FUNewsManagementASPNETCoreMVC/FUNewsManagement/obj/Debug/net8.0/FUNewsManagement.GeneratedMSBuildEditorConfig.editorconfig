@@ -82,6 +82,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Admin/Desktop/Spring25/PRN222/Assignments/FUNewsManagement/FUNewsManagementASPNETCoreMVC/FUNewsManagement/Views/SystemAccounts/AccountList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtQWNjb3VudHNcQWNjb3VudExpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Admin/Desktop/Spring25/PRN222/Assignments/FUNewsManagement/FUNewsManagementASPNETCoreMVC/FUNewsManagement/Views/SystemAccounts/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtQWNjb3VudHNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -100,10 +104,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Admin/Desktop/Spring25/PRN222/Assignments/FUNewsManagement/FUNewsManagementASPNETCoreMVC/FUNewsManagement/Views/SystemAccounts/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtQWNjb3VudHNcRWRpdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Admin/Desktop/Spring25/PRN222/Assignments/FUNewsManagement/FUNewsManagementASPNETCoreMVC/FUNewsManagement/Views/SystemAccounts/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtQWNjb3VudHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Admin/Desktop/Spring25/PRN222/Assignments/FUNewsManagement/FUNewsManagementASPNETCoreMVC/FUNewsManagement/Views/SystemAccounts/Login.cshtml]

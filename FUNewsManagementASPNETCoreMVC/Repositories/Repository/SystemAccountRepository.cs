@@ -20,6 +20,11 @@ namespace Repositories.Repository
         public int GetNumberOfAccount()
             => SystemAccountDAO.GetNumberOfAccount();
         public SystemAccount GetSystemAccountById(int id)
-            => SystemAccountDAO.GetSystemAccountById(id);   
+            => SystemAccountDAO.GetSystemAccountById(id);
+        public List<SystemAccount> GetSystemAccounts()
+            => SystemAccountDAO.GetSystemAccounts();    
+
+        public void UpdateSystemAccount(SystemAccount a)
+            => SystemAccountDAO.UpdateSystemAccount(a);
     }
 }
