@@ -14,7 +14,6 @@ namespace FUNewsManagement.Controllers
     [SessionCheck] // Chặn truy cập nếu chưa đăng nhập
     public class TagsController : Controller
     {
-        private readonly FUNewsManagementContext _context;
         private readonly ITagService _contextTag;
 
         public TagsController(ITagService contextTag)
@@ -23,10 +22,10 @@ namespace FUNewsManagement.Controllers
         }
 
         // GET: Tags
-        /*public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
-            return View(_contextTag.);
-        }*/
+            return View(_contextTag.GetTags());
+        }
 
         // GET: Tags/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -36,8 +35,7 @@ namespace FUNewsManagement.Controllers
                 return NotFound();
             }
 
-            var tag = await _context.Tags
-                .FirstOrDefaultAsync(m => m.TagId == id);
+            var tag = _contextTag.GetTagById(id.ToString());
             if (tag == null)
             {
                 return NotFound();
@@ -53,16 +51,13 @@ namespace FUNewsManagement.Controllers
         }
 
         // POST: Tags/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("TagId,TagName,Note")] Tag tag)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(tag);
-                await _context.SaveChangesAsync();
+                _contextTag.SaveTag(tag);
                 return RedirectToAction(nameof(Index));
             }
             return View(tag);
@@ -76,7 +71,7 @@ namespace FUNewsManagement.Controllers
                 return NotFound();
             }
 
-            var tag = await _context.Tags.FindAsync(id);
+            var tag = _contextTag.GetTagById(id.ToString());
             if (tag == null)
             {
                 return NotFound();
@@ -85,8 +80,6 @@ namespace FUNewsManagement.Controllers
         }
 
         // POST: Tags/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("TagId,TagName,Note")] Tag tag)
@@ -100,8 +93,7 @@ namespace FUNewsManagement.Controllers
             {
                 try
                 {
-                    _context.Update(tag);
-                    await _context.SaveChangesAsync();
+                    _contextTag.UpdateTag(tag);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -127,8 +119,7 @@ namespace FUNewsManagement.Controllers
                 return NotFound();
             }
 
-            var tag = await _context.Tags
-                .FirstOrDefaultAsync(m => m.TagId == id);
+            var tag = _contextTag?.GetTagById(id.ToString());   
             if (tag == null)
             {
                 return NotFound();
@@ -142,19 +133,19 @@ namespace FUNewsManagement.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var tag = await _context.Tags.FindAsync(id);
+            var tag = _contextTag.GetTagById(id.ToString());
             if (tag != null)
             {
-                _context.Tags.Remove(tag);
+                _contextTag.DeleteTag(tag);
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool TagExists(int id)
         {
-            return _context.Tags.Any(e => e.TagId == id);
+            var tmp = _contextTag.GetTagById(id.ToString());
+            return (tmp != null) ? true : false;
         }
     }
 }

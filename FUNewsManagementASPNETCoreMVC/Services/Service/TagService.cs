@@ -19,6 +19,14 @@ namespace Services.Service
             _tagRepository = new TagRepository();
         }
 
+        public void DeleteTag(Tag a) => _tagRepository.DeleteTag(a);
+
         public Tag GetTagById(string TagID) => _tagRepository.GetTagById(TagID);
+
+        public List<Tag> GetTags() => _tagRepository.GetTags();
+
+        public void SaveTag(Tag a) => _tagRepository.SaveTag(a);
+
+        public void UpdateTag(Tag a) => _tagRepository.UpdateTag(a);
     }
 }

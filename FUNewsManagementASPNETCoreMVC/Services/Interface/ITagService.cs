@@ -9,6 +9,10 @@ namespace Services.Interface
 {
     public interface ITagService
     {
+        void SaveTag(Tag a);
+        void DeleteTag(Tag a);
+        void UpdateTag(Tag a);
+        List<Tag> GetTags();
         Tag GetTagById(string TagID);
     }
 }
