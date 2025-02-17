@@ -150,6 +150,8 @@ namespace FUNewsManagement.Controllers
                 try
                 {
                     _systemAccountService.UpdateSystemAccount(systemAccount);
+                    // Đặt thông báo thành công vào ViewBag
+                    ViewBag.SuccessMessage = "Cập nhật thông tin thành công!";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -162,7 +164,7 @@ namespace FUNewsManagement.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index)); // Chuyển về danh sách tài khoản
+                return View(systemAccount); 
             }
 
             return View(systemAccount); // Nếu lỗi, quay lại form chỉnh sửa
