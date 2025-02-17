@@ -11,6 +11,7 @@ namespace Repositories.Interface
     {
         SystemAccount GetAccountByEmailAndPassword(string email, string password);
         SystemAccount GetAccountByEmail(string email);
-        void CreateAccount(SystemAccount account);  
+        void CreateAccount(SystemAccount account);
+        int GetNumberOfAccount();
     }
 }

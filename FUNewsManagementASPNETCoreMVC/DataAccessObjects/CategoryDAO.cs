@@ -23,5 +23,55 @@ namespace DataAccessObjects
             }
             return listCategories;
         }
+
+        public static void SaveCategory(Category a)
+        {
+            try
+            {
+                using var context = new FUNewsManagementContext();
+                context.Categories.Add(a);
+                context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public static void UpdateCategory(Category a)
+        {
+            try
+            {
+                using var context = new FUNewsManagementContext();
+                context.Entry<Category>(a).State
+                    = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public static void DeleteCategory(Category a)
+        {
+            try
+            {
+                using var context = new FUNewsManagementContext();
+                context.Remove(a);
+
+                context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public static Category GetCategoryById(int id)
+        {
+            using var db = new FUNewsManagementContext();
+            return db.Categories.FirstOrDefault(c => c.CategoryId == id);
+        }
     }
 }

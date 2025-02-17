@@ -29,5 +29,11 @@ namespace DataAccessObjects
             db.SystemAccounts.Add(account);
             db.SaveChanges();
         }
+
+        public static int GetNumberOfAccount()
+        {
+            using var db = new FUNewsManagementContext();
+            return db.SystemAccounts.Count();   
+        }
     }
 }

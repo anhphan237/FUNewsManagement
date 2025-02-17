@@ -28,7 +28,7 @@ namespace FUNewsManagement.Controllers
             return View(categories);
         }
 
-        /*// GET: Categories/Details/5
+        // GET: Categories/Details/5
         public async Task<IActionResult> Details(short? id)
         {
             if (id == null)
@@ -36,9 +36,7 @@ namespace FUNewsManagement.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Categories
-                .Include(c => c.ParentCategory)
-                .FirstOrDefaultAsync(m => m.CategoryId == id);
+            var category = _contextCategory.GetCategoryById(id ?? 0);
             if (category == null)
             {
                 return NotFound();
@@ -50,24 +48,21 @@ namespace FUNewsManagement.Controllers
         // GET: Categories/Create
         public IActionResult Create()
         {
-            ViewData["ParentCategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryDesciption");
+            ViewData["ParentCategoryId"] = new SelectList(_contextCategory.GetCategories(), "CategoryId", "CategoryName");
             return View();
         }
 
         // POST: Categories/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CategoryId,CategoryName,CategoryDesciption,ParentCategoryId,IsActive")] Category category)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(category);
-                await _context.SaveChangesAsync();
+                _contextCategory.SaveCategory(category);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ParentCategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryDesciption", category.ParentCategoryId);
+            ViewData["ParentCategoryId"] = new SelectList(_contextCategory.GetCategories(), "CategoryId", "CategoryName", category.ParentCategoryId);
             return View(category);
         }
 
@@ -79,18 +74,16 @@ namespace FUNewsManagement.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Categories.FindAsync(id);
+            var category = _contextCategory?.GetCategoryById(id ?? 0);  
             if (category == null)
             {
                 return NotFound();
             }
-            ViewData["ParentCategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryDesciption", category.ParentCategoryId);
+            ViewData["ParentCategoryId"] = new SelectList(_contextCategory?.GetCategories(), "CategoryId", "CategoryName", category.ParentCategoryId);
             return View(category);
         }
 
         // POST: Categories/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(short id, [Bind("CategoryId,CategoryName,CategoryDesciption,ParentCategoryId,IsActive")] Category category)
@@ -104,8 +97,7 @@ namespace FUNewsManagement.Controllers
             {
                 try
                 {
-                    _context.Update(category);
-                    await _context.SaveChangesAsync();
+                    _contextCategory.UpdateCategory(category);  
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -120,7 +112,7 @@ namespace FUNewsManagement.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ParentCategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryDesciption", category.ParentCategoryId);
+            ViewData["ParentCategoryId"] = new SelectList(_contextCategory?.GetCategories(), "CategoryId", "CategoryName", category.ParentCategoryId);
             return View(category);
         }
 
@@ -132,9 +124,7 @@ namespace FUNewsManagement.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Categories
-                .Include(c => c.ParentCategory)
-                .FirstOrDefaultAsync(m => m.CategoryId == id);
+            var category = _contextCategory?.GetCategoryById(Convert.ToInt32(id));
             if (category == null)
             {
                 return NotFound();
@@ -148,19 +138,19 @@ namespace FUNewsManagement.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(short id)
         {
-            var category = await _context.Categories.FindAsync(id);
+            var category = _contextCategory?.GetCategoryById(Convert.ToInt32(id));
             if (category != null)
             {
-                _context.Categories.Remove(category);
+                _contextCategory?.DeleteCategory(category);
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CategoryExists(short id)
         {
-            return _context.Categories.Any(e => e.CategoryId == id);
-        }*/
+            var tmp = _contextCategory?.GetCategoryById(Convert.ToInt32(id));
+            return (tmp != null) ? true : false;
+        }
     }
 }

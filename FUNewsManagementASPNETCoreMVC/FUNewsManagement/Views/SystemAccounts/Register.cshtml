@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Register";
+    Layout = null;
+}
+
+<h2>Register</h2>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="text-danger">
+        @Html.ValidationSummary()
+    </div>
+}
+
+<form method="post" asp-controller="SystemAccounts" asp-action="Register">
+    <div>
+        <label>Email</label>
+        <input type="email" name="email" required />
+    </div>
+    <div>
+        <label>Password</label>
+        <input type="password" name="password" required />
+    </div>
+    <div>
+        <label>Confirm Password</label>
+        <input type="password" name="confirmPassword" required />
+    </div>
+    <div>
+        <label>Role</label>
+        <select name="role" required>
+            <option value="1">Admin</option>
+            <option value="2">User</option>
+        </select>
+    </div>
+    <button type="submit">Register</button>
+
+    <!-- Link quay lại trang Login -->
+    <a asp-controller="SystemAccounts" asp-action="Login">Back to Login</a>
+</form>

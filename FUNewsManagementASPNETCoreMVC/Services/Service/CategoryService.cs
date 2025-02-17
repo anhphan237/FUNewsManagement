@@ -19,6 +19,14 @@ namespace Services.Service
             _categoryRepository = new CategoryRepository();
         }
 
+        public void DeleteCategory(Category a) => _categoryRepository.DeleteCategory(a);
+
         public List<Category> GetCategories() => _categoryRepository.GetCategories();
+
+        public Category GetCategoryById(int id) => _categoryRepository.GetCategoryById(id);
+
+        public void SaveCategory(Category a) => _categoryRepository.CreateCategory(a);
+
+        public void UpdateCategory(Category a) => _categoryRepository.UpdateCategory(a);
     }
 }

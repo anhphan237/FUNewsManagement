@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using Services.Interface;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace FUNewsManagement.Controllers
 {
@@ -46,6 +47,7 @@ namespace FUNewsManagement.Controllers
             {
                 // Lưu thông tin vào session
                 HttpContext.Session.SetInt32("AccountId", account.AccountId);
+                HttpContext.Session.SetString("AccountEmail", account.AccountEmail);
                 HttpContext.Session.SetInt32("AccountRole", account.AccountRole ?? 0);
                 return RedirectToAction("Index", "NewsArticles");
             }
@@ -61,7 +63,7 @@ namespace FUNewsManagement.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(string email, string password, string confirmPassword)
+        public IActionResult Register(string email, string password, string confirmPassword, int role)
         {
             if (password != confirmPassword)
             {
@@ -80,7 +82,8 @@ namespace FUNewsManagement.Controllers
             {
                 AccountEmail = email,
                 AccountPassword = password, // Cần mã hóa mật khẩu trước khi lưu
-                AccountRole = 1 // Gán role mặc định cho user
+                AccountRole = role, // Gán role mặc định cho user
+                AccountId = (short)(_systemAccountService.GetNumberOfAccount() + 1)
             };
 
             _systemAccountService.CreateAccount(newAccount);
@@ -91,8 +94,8 @@ namespace FUNewsManagement.Controllers
 
         public IActionResult Logout()
         {
-            HttpContext.Session.Clear(); // Xóa session khi logout
-            return RedirectToAction("Login");
+            HttpContext.Session.Clear(); // Xóa toàn bộ session
+            return RedirectToAction("Login", "SystemAccounts"); // Quay về trang Login
         }
     }
 }
