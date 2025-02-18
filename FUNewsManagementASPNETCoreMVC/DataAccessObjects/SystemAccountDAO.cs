@@ -24,6 +24,23 @@ namespace DataAccessObjects
             return systemAccounts;
         }
 
+        public static List<SystemAccount> GetAdminAccounts()
+        {
+            var systemAccounts = new List<SystemAccount>();
+            try
+            {
+                using var db = new FUNewsManagementContext();
+                systemAccounts = db.SystemAccounts
+                    .Where(a => a.AccountRole == 1)
+                    .ToList();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return systemAccounts;
+        }
+
         public static SystemAccount GetAccountByEmailAndPassword(string email, string password)
         {
             using var db = new FUNewsManagementContext();

@@ -28,6 +28,9 @@ namespace Services.Service
         public SystemAccount GetAccountByEmailAndPassword(string email, string password) 
             => _systemAccountRepository.GetAccountByEmailAndPassword(email, password);
 
+        public List<SystemAccount> GetAdminAccounts()
+            => _systemAccountRepository.GetAdminAccounts();
+
         public int GetNumberOfAccount()
             => _systemAccountRepository.GetNumberOfAccount();
 

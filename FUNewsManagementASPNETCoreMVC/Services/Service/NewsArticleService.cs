@@ -21,9 +21,13 @@ namespace Services.Service
 
         public void DeleteNewsArticle(NewsArticle a) => _newsArticleRepository.DeleteArticle(a);
 
-        public NewsArticle GetNewsArticleById(int id) => _newsArticleRepository.GetArticleById(id);
+        public NewsArticle GetNewsArticleDetailById(int id) => _newsArticleRepository.GetArticleDetailById(id);
 
         public List<NewsArticle> GetNewsArticles() => _newsArticleRepository.GetArticles();
+
+        public List<NewsArticle> GetNewsArticlesDetail() => _newsArticleRepository.GetNewsArticlesDetail();
+
+        public int GetNumberOfArticle() => _newsArticleRepository.GetNumberOfArticle();
 
         public void SaveNewsArticle(NewsArticle a) => SaveNewsArticle(a);
 

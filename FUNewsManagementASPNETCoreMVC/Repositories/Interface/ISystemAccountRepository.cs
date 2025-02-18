@@ -14,6 +14,7 @@ namespace Repositories.Interface
         void UpdateSystemAccount(SystemAccount a);
         void CreateAccount(SystemAccount account);
         List<SystemAccount> GetSystemAccounts();
+        List<SystemAccount> GetAdminAccounts();
         int GetNumberOfAccount();
         SystemAccount GetSystemAccountById(int id);
     }

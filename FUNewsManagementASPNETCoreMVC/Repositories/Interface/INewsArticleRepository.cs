@@ -13,6 +13,8 @@ namespace Repositories.Interface
         void DeleteArticle(NewsArticle a);
         void UpdateArticle(NewsArticle a);
         List<NewsArticle> GetArticles();
-        NewsArticle GetArticleById(int id);
+        List<NewsArticle> GetNewsArticlesDetail();
+        NewsArticle GetArticleDetailById(int id);
+        int GetNumberOfArticle();
     }
 }

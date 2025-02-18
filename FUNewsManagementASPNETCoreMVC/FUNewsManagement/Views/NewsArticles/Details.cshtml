@@ -40,17 +40,17 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.NewsSource)
         </dd>
-        <dt class = "col-sm-2">
+        @* <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.NewsStatus)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.NewsStatus)
-        </dd>
+        </dd> *@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.UpdatedById)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UpdatedById)
+            @Html.DisplayFor(model => model.UpdatedBy.AccountName)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ModifiedDate)
@@ -62,13 +62,13 @@
             @Html.DisplayNameFor(model => model.Category)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category.CategoryDesciption)
+            @Html.DisplayFor(model => model.Category.CategoryName)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CreatedBy)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedBy.AccountId)
+            @Html.DisplayFor(model => model.CreatedBy.AccountName)
         </dd>
     </dl>
 </div>

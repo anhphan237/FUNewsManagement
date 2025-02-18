@@ -13,6 +13,8 @@ namespace Services.Interface
         void DeleteNewsArticle(NewsArticle a);
         void UpdateNewsArticle(NewsArticle a);
         List<NewsArticle> GetNewsArticles();
-        NewsArticle GetNewsArticleById(int id);
+        List<NewsArticle> GetNewsArticlesDetail();
+        NewsArticle GetNewsArticleDetailById(int id);
+        int GetNumberOfArticle();
     }
 }

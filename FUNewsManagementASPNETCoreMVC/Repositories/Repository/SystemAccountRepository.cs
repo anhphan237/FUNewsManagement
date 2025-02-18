@@ -13,14 +13,22 @@ namespace Repositories.Repository
     {
         public void CreateAccount(SystemAccount account)
             => SystemAccountDAO.CreateAccount(account); 
+
         public SystemAccount GetAccountByEmail(string email)
             => SystemAccountDAO.GetAccountByEmail(email);
+
         public SystemAccount GetAccountByEmailAndPassword(string email, string password) 
             => SystemAccountDAO.GetAccountByEmailAndPassword(email,password);
+
+        public List<SystemAccount> GetAdminAccounts()
+            => SystemAccountDAO.GetAdminAccounts();
+
         public int GetNumberOfAccount()
             => SystemAccountDAO.GetNumberOfAccount();
+
         public SystemAccount GetSystemAccountById(int id)
             => SystemAccountDAO.GetSystemAccountById(id);
+
         public List<SystemAccount> GetSystemAccounts()
             => SystemAccountDAO.GetSystemAccounts();    
 

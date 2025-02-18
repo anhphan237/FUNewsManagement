@@ -74,6 +74,43 @@ namespace DataAccessObjects
             using var db = new FUNewsManagementContext();
             return db.NewsArticles.FirstOrDefault(c => c.NewsArticleId == id.ToString());
         }
+
+        public static NewsArticle GetNewsArticleDetailById(int id)
+        {
+            using var db = new FUNewsManagementContext();
+            return db.NewsArticles
+                .Include(na => na.CreatedBy)   // Nạp CreatedBy
+                .Include(na => na.UpdatedBy)   // Nạp UpdatedBy
+                .Include(na => na.Category)    // Nạp Category
+                .FirstOrDefault(c => c.NewsArticleId == id.ToString());
+        }
+
+        public static List<NewsArticle> GetNewsArticlesDetail()
+        {
+            var articleProducts = new List<NewsArticle>();
+            try
+            {
+                using var db = new FUNewsManagementContext();
+
+                // Sử dụng Include để nạp các mối quan hệ CreatedBy và UpdatedBy
+                articleProducts = db.NewsArticles
+                    .Include(na => na.CreatedBy)   // Nạp CreatedBy
+                    .Include(na => na.UpdatedBy)   // Nạp UpdatedBy
+                    .Include(na => na.Category)    // Nạp Category
+                    .ToList();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return articleProducts;
+        }
+
+        public static int GetNumberOfNewsArticle()
+        {
+            using var db = new FUNewsManagementContext();
+            return db.NewsArticles.Count();
+        }
     }
 
 }

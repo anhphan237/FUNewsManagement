@@ -14,6 +14,7 @@ namespace Services.Interface
         void CreateAccount(SystemAccount account);
         void UpdateSystemAccount(SystemAccount a);
         List<SystemAccount> GetSystemAccounts();
+        List<SystemAccount> GetAdminAccounts();
         int GetNumberOfAccount();
         SystemAccount GetSystemAccountById(int id);
     }

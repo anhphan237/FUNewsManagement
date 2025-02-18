@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using BusinessObjects;
 using Services.Interface;
 using FUNewsManagement.Filters;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using Services.Service;
+using System.Data;
 
 namespace FUNewsManagement.Controllers
 {
@@ -16,11 +19,16 @@ namespace FUNewsManagement.Controllers
     {
         private readonly INewsArticleService _contextNewsArticle;
         private readonly ICategoryService _contextCategory;
+        private readonly ISystemAccountService _contextAccount;
 
-        public NewsArticlesController(INewsArticleService contextNewsArticle, ICategoryService contextCategory)
+        public NewsArticlesController(
+            INewsArticleService contextNewsArticle, 
+            ICategoryService contextCategory,
+            ISystemAccountService contextAccount)
         {
             _contextNewsArticle = contextNewsArticle;
             _contextCategory = contextCategory;
+            _contextAccount = contextAccount;
         }
 
 
@@ -28,8 +36,8 @@ namespace FUNewsManagement.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.Role = HttpContext.Session.GetInt32("AccountRole");
-            var myStoreContext = _contextNewsArticle.GetNewsArticles();
-            return View(myStoreContext.ToList());
+            var newsArticles = _contextNewsArticle.GetNewsArticlesDetail();
+            return View(newsArticles.ToList());
         }
 
         // GET: NewsArticles/Details/5
@@ -42,19 +50,22 @@ namespace FUNewsManagement.Controllers
 
             ViewBag.Role = HttpContext.Session.GetInt32("AccountRole");
 
-            var product = _contextNewsArticle.GetNewsArticleById(Convert.ToInt32(id));
-            if (product == null)
+            var newsArticles = _contextNewsArticle.GetNewsArticleDetailById(Convert.ToInt32(id));
+            if (newsArticles == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(newsArticles);
         }
 
         // GET: NewsArticles/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_contextCategory.GetCategories(), "CategoryId", "CategoryId");
+            ViewData["CategoryId"] = new SelectList(_contextCategory.GetCategories(), "CategoryId", "CategoryName");
+            // Lấy danh sách tài khoản để chọn CreatedBy và UpdatedBy
+            ViewBag.CreatedById = new SelectList(_contextAccount.GetAdminAccounts(), "AccountId", "AccountName");
+            ViewBag.UpdatedById = new SelectList(_contextAccount.GetAdminAccounts(), "AccountId", "AccountName");
             return View();
         }
 
@@ -65,11 +76,27 @@ namespace FUNewsManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                _contextNewsArticle.SaveNewsArticle(newsArticle);
+                try
+                {
+                    // If necessary, manually set NewsArticleId (e.g., auto-increment logic)
+                    newsArticle.NewsArticleId = (_contextNewsArticle.GetNumberOfArticle() + 1).ToString();
 
-                return RedirectToAction(nameof(Index));
+                    // Save the article to the database
+                    _contextNewsArticle.SaveNewsArticle(newsArticle);
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    // Log the error message
+                    Console.WriteLine(ex.Message);
+                    return View(newsArticle);  // Return the form with the validation errors
+                }
             }
-            ViewData["CategoryId"] = new SelectList(_contextCategory.GetCategories(), "CategoryId", "CategoryId", newsArticle.CategoryId);
+
+            // If the form submission is invalid, re-populate the dropdown lists
+            ViewData["CategoryId"] = new SelectList(_contextCategory.GetCategories(), "CategoryId", "CategoryName", newsArticle.CategoryId);
+            ViewBag.CreatedById = new SelectList(_contextAccount.GetAdminAccounts(), "AccountId", "AccountName", newsArticle.CreatedById);
+            ViewBag.UpdatedById = new SelectList(_contextAccount.GetAdminAccounts(), "AccountId", "AccountName", newsArticle.UpdatedById);
             return View(newsArticle);
         }
 
@@ -81,12 +108,15 @@ namespace FUNewsManagement.Controllers
                 return NotFound();
             }
 
-            var article = _contextNewsArticle.GetNewsArticleById(Convert.ToInt32(id));
+            var article = _contextNewsArticle.GetNewsArticleDetailById(Convert.ToInt32(id));
             if (article == null)
             {
                 return NotFound();
             }
             ViewData["CategoryId"] = new SelectList(_contextCategory.GetCategories(), "CategoryId", "CategoryId", article.CategoryId);
+            // Lấy danh sách tài khoản để chọn CreatedBy và UpdatedBy
+            ViewBag.CreatedById = new SelectList(_contextAccount.GetAdminAccounts(), "AccountId", "AccountName", article.CreatedById);
+            ViewBag.UpdatedById = new SelectList(_contextAccount.GetAdminAccounts(), "AccountId", "AccountName", article.UpdatedById);
             return View(article);
         }
 
@@ -105,6 +135,8 @@ namespace FUNewsManagement.Controllers
                 try
                 {
                     _contextNewsArticle.UpdateNewsArticle(newsArticle);
+                    // Đặt thông báo thành công vào ViewBag
+                    ViewBag.SuccessMessage = "Cập nhật thông tin thành công!";
                 }
                 catch (Exception)
                 {
@@ -117,9 +149,12 @@ namespace FUNewsManagement.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return View(newsArticle);
             }
             ViewData["CategoryId"] = new SelectList(_contextCategory.GetCategories(), "CategoryId", "CategoryId", newsArticle.CategoryId);
+            // Lấy danh sách tài khoản để chọn CreatedBy và UpdatedBy
+            ViewBag.CreatedById = new SelectList(_contextAccount.GetAdminAccounts(), "AccountId", "AccountName", newsArticle.CreatedById);
+            ViewBag.UpdatedById = new SelectList(_contextAccount.GetAdminAccounts(), "AccountId", "AccountName", newsArticle.UpdatedById);
             return View(newsArticle);
         }
 
@@ -131,7 +166,7 @@ namespace FUNewsManagement.Controllers
                 return NotFound();
             }
 
-            var newsArticle = _contextNewsArticle.GetNewsArticleById(Convert.ToInt32(id));
+            var newsArticle = _contextNewsArticle.GetNewsArticleDetailById(Convert.ToInt32(id));
             if (newsArticle == null)
             {
                 return NotFound();
@@ -145,7 +180,7 @@ namespace FUNewsManagement.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var newsArticle = _contextNewsArticle.GetNewsArticleById(Convert.ToInt32(id));
+            var newsArticle = _contextNewsArticle.GetNewsArticleDetailById(Convert.ToInt32(id));
             if (newsArticle != null)
             {
                 _contextNewsArticle.DeleteNewsArticle(newsArticle);
@@ -156,7 +191,7 @@ namespace FUNewsManagement.Controllers
 
         private bool NewsArticleExists(int id)
         {
-            var tmp = _contextNewsArticle.GetNewsArticleById(Convert.ToInt32(id));
+            var tmp = _contextNewsArticle.GetNewsArticleDetailById(Convert.ToInt32(id));
             return (tmp != null) ? true : false;
         }
     }
